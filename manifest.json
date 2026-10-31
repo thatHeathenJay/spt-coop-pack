@@ -1,0 +1,159 @@
+{
+  "sptVersion": "4.1.6",
+  "eftFileVersion": "0.16.9.40743",
+  "note": "Client-side mods only. Friends do not run SPT.Server; they connect to the host. Each entry is extracted and only its BepInEx\\ and EscapeFromTarkov_Data\\ folders are copied.",
+  "mods": [
+    {
+      "name": "Fika 2.4.6",
+      "url": "https://github.com/project-fika/Fika-Plugin/releases/download/v2.4.6/Fika.Release.2.4.6.zip"
+    },
+    {
+      "name": "BigBrain 1.5.0",
+      "url": "https://github.com/DrakiaXYZ/SPT-BigBrain/releases/download/1.5.0/DrakiaXYZ-BigBrain-1.5.0.7z"
+    },
+    {
+      "name": "Waypoints 1.9.0",
+      "url": "https://github.com/DrakiaXYZ/SPT-Waypoints/releases/download/1.9.0/DrakiaXYZ-Waypoints-1.9.0.7z"
+    },
+    {
+      "name": "SAIN 4.5.1",
+      "url": "https://github.com/ArchangelWTF/SAIN/releases/download/v4.5.1/SAIN.4.5.1.zip"
+    },
+    {
+      "name": "Looting Bots 1.8.0",
+      "url": "https://github.com/ozen-m/SPT-LootingBots/releases/download/v1.8.0-spt-4.1/Skwizzy.LootingBots-1.8.0.7z"
+    },
+    {
+      "name": "Questing Bots 1.2.0",
+      "url": "https://github.com/dwesterwick/SPTQuestingBots/releases/download/1.2.0/QuestingBots-1.2.0.7z"
+    },
+    {
+      "name": "Questing Bots Fika Sync 1.2.0",
+      "url": "https://github.com/dwesterwick/SPTQuestingBots/releases/download/1.2.0/QuestingBotsFikaSync-1.2.0.7z"
+    },
+    {
+      "name": "ABPS 2.1.0",
+      "url": "https://github.com/acidphantasm/botplacementsystem-csharp/releases/download/2.1.0/acidphantasm-botplacementsystem.zip"
+    },
+    {
+      "name": "Dynamic Maps 1.2.1",
+      "url": "https://github.com/acidphantasm/SPT-DynamicMaps/releases/download/1.2.1/DynamicMaps-1.2.1.zip"
+    },
+    {
+      "name": "DERP 1.1.2",
+      "url": "https://github.com/Shibatsui/SPT-Dynamic-External-Resolution/releases/download/1.1.2/Dynamic-External-Resolution-1.1.2.zip"
+    },
+    {
+      "name": "Nerf Bot Grenades 1.3.1",
+      "url": "https://github.com/Lacyway/NerfBotGrenades/releases/download/v1.3.1/NerfBotGrenades.zip"
+    },
+    {
+      "name": "Fontaine's FOV Fix 4.1.0",
+      "url": "https://github.com/space-commits/SPT-FOV-Fix/releases/download/v4.1.0/Fontaine-FOV-Fix-v4.1.0-SPT-v4.1.x.zip"
+    },
+    {
+      "name": "Task Item Indicator 1.0.0",
+      "url": "https://github.com/Vultify/TaskItemIndicator/releases/download/v1.0.0/TaskItemIndicator_1.0.0.zip"
+    },
+    {
+      "name": "Door Randomizer 1.8.0",
+      "url": "https://github.com/DrakiaXYZ/SPT-DoorRandomizer/releases/download/1.8.0/DrakiaXYZ-DoorRandomizer-1.8.0.7z"
+    },
+    {
+      "name": "Door Randomizer Fika Sync 1.1.0",
+      "url": "https://github.com/ozen-m/SPT-DoorRandomizer.Sync/releases/download/v1.1.0/ozen.DoorRandomizer.Sync-1.1.0.zip"
+    },
+    {
+      "name": "Barter Items Stacks 1.4.3",
+      "url": "https://github.com/slpf/BarterItemsStacks/releases/download/1.4.3/BarterItemsStacks-1.4.3.zip"
+    },
+    {
+      "name": "Caliber Under Ammo Name 1.2.0",
+      "url": "https://github.com/slpf/CaliberUnderName/releases/download/1.2.0b/CaliberUnderName-1.2.0.7z"
+    },
+    {
+      "name": "Compatibility Highlighter 1.3.1",
+      "url": "https://github.com/awnova/CompatibilityHighlighter/releases/download/v1.3.1/CompatibilityHighlighterV1.3.1.7z"
+    },
+    {
+      "name": "Hands Are Not Busy 1.7.1",
+      "url": "https://github.com/Lacyway/HandsAreNotBusy/releases/download/1.7.1/HandsAreNotBusy.zip"
+    },
+    {
+      "name": "TraceSix 1.0.1",
+      "url": "https://github.com/matsixx/TraceSix/releases/download/v1.0.1/TraceSix-1.0.1.zip"
+    },
+    {
+      "name": "FogSix 1.0.1",
+      "url": "https://github.com/matsixx/FogSix/releases/download/v1.0.1/FogSix-1.0.1.zip"
+    },
+    {
+      "name": "WTT CommonLib 3.0.6",
+      "url": "https://github.com/WelcomeToThursday/WTT-CommonLib/releases/download/v3.0.6/WTT-CommonLib-v3.0.6.zip"
+    },
+    {
+      "name": "WTT Content Backport 2.0.5 (5.7 GB)",
+      "url": "https://downloads-backport.welcometotarkov.com/WTT-ContentBackport-2.0.5.7z"
+    },
+    {
+      "name": "Content Backport Prestiges 1.1.0",
+      "url": "https://github.com/ArchangelWTF/ContentBackportPrestiges/releases/download/v1.1.0/ContentBackportPrestiges-1.1.0.zip"
+    },
+    {
+      "name": "Quest Backport 1.0.9",
+      "url": "https://github.com/Viper-9/QuestBackport/releases/download/v1.0.9/QuestBackport-1.0.9.zip"
+    },
+    {
+      "name": "Continuous Load Ammo 1.2.0",
+      "url": "https://github.com/ozen-m/SPT-ContinuousLoadAmmo/releases/download/v1.2.0/ozen.ContinuousLoadAmmo-1.2.0.zip"
+    },
+    {
+      "name": "Ammo Loading Animations 2.0.0",
+      "url": "https://github.com/danauraborealis/ManimalAmmoLoadingAnimations/releases/download/2.0.0/LoadAmmoAnim-2.0.0.zip"
+    },
+    {
+      "name": "Map Variants 1.0.3 (library for DynamicMaps Extended)",
+      "url": "https://github.com/LennoxP90/SPT-MapVariants/releases/download/v1.0.3/SPT-MapVariants-1.0.3-SPT4.1.7z"
+    },
+    {
+      "name": "DynamicMaps Extended 2.5.2 (1.8 GB)",
+      "url": "https://github.com/black-hawk95/DynamicMaps-Extended/releases/download/2.5.2/DynamicMaps-Extended-2.5.2-SPT4.1.zip"
+    },
+    {
+      "name": "Climbable Ladders 1.0.4",
+      "url": "https://github.com/bmpq/spt-ladders/releases/download/v1.0.4/tarkin-ladders-v1.0.4.zip"
+    },
+    {
+      "name": "CS Gas 2.0.0",
+      "url": "https://github.com/danauraborealis/ManimalCSGas/releases/download/2.0.0/Manimal-CSGas-2.0.0.zip"
+    },
+    {
+      "name": "Interface 1.1 Backport 1.0.4",
+      "url": "https://github.com/Grifm0le/Interface11Backport/releases/download/v1.0.4/Interface11Backport-1.0.4.zip"
+    },
+    {
+      "name": "Raid Settings Skipper 1.3.0",
+      "url": "https://github.com/awnova/FikaRaidSettingsSkipper/releases/download/v1.3.0/RSSV1.3.0.7z"
+    },
+    {
+      "name": "Better BepInEx 1.0.2",
+      "url": "https://github.com/JoelHauser/BetterBepInEx/releases/download/v1.0.2/BetterBepInEx_V1.0.2.zip"
+    },
+    {
+      "name": "UI Fixes 6.0.4",
+      "url": "https://github.com/tyfon7/UIFixes/releases/download/v6.0.4/Tyfon-UIFixes-6.0.4.zip"
+    },
+    {
+      "name": "All Quests Checkmarks 1.4.0",
+      "url": "https://github.com/danx91/AllQuestsCheckmarks/releases/download/v1.4.0/allquestscheckmarks-1.4.0-spt-4.1.zip"
+    },
+    {
+      "name": "No Version Label In Raid 1.0.0",
+      "url": "https://github.com/AcksBerg/DisableVersionLabelInRaid/releases/download/Initial/DisableVersionLabelInRaid.7z"
+    },
+    {
+      "name": "WTT Menu Overhaul 1.3.0",
+      "url": "https://github.com/emilanderss0n/SPT-Menu-Overhaul/releases/download/1.3.0/MoxoPixel-MenuOverhaul.zip"
+    }
+  ]
+}
