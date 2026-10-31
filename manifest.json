@@ -166,6 +166,42 @@
     {
       "name": "APBS 2.4.1",
       "url": "https://github.com/acidphantasm/progressivebotsystem-csharp/releases/download/2.4.1/acidphantasm-progressivebotsystem.7z"
+    },
+    {
+      "name": "Search Open Containers 1.5.0",
+      "url": "https://github.com/DrakiaXYZ/SPT-SearchOpenContainers/releases/download/1.5.0/DrakiaXYZ-SearchOpenContainers-1.5.0.7z"
+    },
+    {
+      "name": "Gilded Key Storage 2.1.1",
+      "url": "https://github.com/DrakiaXYZ/SPT-GildedKeyStorage-CSharp/releases/download/2.1.1/DrakiaXYZ-GildedKeyStorage-2.1.1.7z"
+    },
+    {
+      "name": "Use Loose Loot 1.6.0",
+      "url": "https://github.com/DrakiaXYZ/SPT-UseLooseLoot/releases/download/1.6.0/Gaylatea-UseLooseLoot-1.6.0.7z"
+    },
+    {
+      "name": "Let Me Right Click 1.1.1",
+      "url": "https://github.com/Lacyway/LetMeRightClick/releases/download/v1.1.1/LetMeRightClick.zip"
+    },
+    {
+      "name": "Shadow Flicker Fix 1.5.3",
+      "url": "https://github.com/peinwastaken/shadowflickerfix/releases/download/1.5.3/ShadowFlickerFix.7z"
+    },
+    {
+      "name": "EOTech Fix 1.0.2",
+      "url": "https://github.com/matsixx/EOTechFix/releases/download/v1.0.2/EOTechFix.zip"
+    },
+    {
+      "name": "Stop Hotkey Auto-Vault 1.0.3",
+      "url": "https://github.com/ArchangelWTF/StopHotkeyAutoVault/releases/download/1.0.3/StopHotkeyAutoVault-1.0.3.zip"
+    },
+    {
+      "name": "Continuous Healing 1.6.3",
+      "url": "https://github.com/Lacyway/ContinuousHealing/releases/download/v1.6.3/ContinuousHealing.zip"
+    },
+    {
+      "name": "Trader Modding and Improved Weapon Building 2.1.2",
+      "url": "https://github.com/Soulztorm/ChooChoo-TraderModding/releases/download/2.1.2/ChooChoo-TraderModding.zip"
     }
   ]
 }
