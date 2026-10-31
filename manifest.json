@@ -20,18 +20,6 @@
       "url": "https://github.com/ArchangelWTF/SAIN/releases/download/v4.5.1/SAIN.4.5.1.zip"
     },
     {
-      "name": "Looting Bots 1.8.0",
-      "url": "https://github.com/ozen-m/SPT-LootingBots/releases/download/v1.8.0-spt-4.1/Skwizzy.LootingBots-1.8.0.7z"
-    },
-    {
-      "name": "Questing Bots 1.2.0",
-      "url": "https://github.com/dwesterwick/SPTQuestingBots/releases/download/1.2.0/QuestingBots-1.2.0.7z"
-    },
-    {
-      "name": "Questing Bots Fika Sync 1.2.0",
-      "url": "https://github.com/dwesterwick/SPTQuestingBots/releases/download/1.2.0/QuestingBotsFikaSync-1.2.0.7z"
-    },
-    {
       "name": "ABPS 2.1.0",
       "url": "https://github.com/acidphantasm/botplacementsystem-csharp/releases/download/2.1.0/acidphantasm-botplacementsystem.zip"
     },
@@ -190,6 +178,38 @@
     {
       "name": "Trader Modding and Improved Weapon Building 2.1.2",
       "url": "https://github.com/Soulztorm/ChooChoo-TraderModding/releases/download/2.1.2/ChooChoo-TraderModding.zip"
+    },
+    {
+      "name": "ORBIT 3.1.0",
+      "url": "https://github.com/Chazut/ORBIT/releases/download/3.1.0/ORBIT-3.1.0.zip"
+    },
+    {
+      "name": "ORBIT Fika Addon 1.2.0",
+      "url": "https://github.com/Chazut/ORBIT/releases/download/3.0.0/ORBIT-Fika-Addon-1.2.0.zip"
+    },
+    {
+      "name": "SAIN Personality Mixer 1.0.0",
+      "url": "https://github.com/Chazut/SAIN-Personality-Mixer/releases/download/1.0.0/SAIN-Personality-Mixer-1.0.0.zip"
+    },
+    {
+      "name": "Armor Class Icon 1.1.1",
+      "url": "https://github.com/slpf/ArmorClassIcon/releases/download/1.1.1/ArmorClassIcon-1.1.1.zip"
+    },
+    {
+      "name": "Don't Shoot The Bus 1.1.0",
+      "url": "https://github.com/Chazut/Dont-Shoot-The-Bus/releases/download/1.1.0/DontShootTheBus-v1.1.0.zip"
+    },
+    {
+      "name": "Battle Ambience 2.4.0",
+      "url": "https://github.com/peinwastaken/SPTBattleAmbience/releases/download/2.4.0/BattleAmbience.7z"
+    },
+    {
+      "name": "Battle Ambience Fika Sync 1.0.2",
+      "url": "https://github.com/peinwastaken/SPTBattleAmbience/releases/download/2.4.0/BattleAmbienceFikaSync.7z"
+    },
+    {
+      "name": "HollywoodFX 3.0.0",
+      "url": "https://github.com/SleepingPills/HollywoodFX/releases/download/v3.0.0/HollywoodFx_3.0.0.zip"
     }
   ]
 }
