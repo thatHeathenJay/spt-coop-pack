@@ -210,6 +210,10 @@
     {
       "name": "HollywoodFX 3.0.0",
       "url": "https://github.com/SleepingPills/HollywoodFX/releases/download/v3.0.0/HollywoodFx_3.0.0.zip"
+    },
+    {
+      "name": "Advanced Stash Sorting 1.0.6",
+      "url": "https://github.com/slpf/AdvancedStashSorting/releases/download/1.0.6/AdvancedStashSorting-1.0.6.zip"
     }
   ]
 }
