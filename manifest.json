@@ -214,6 +214,10 @@
     {
       "name": "Advanced Stash Sorting 1.0.6",
       "url": "https://github.com/slpf/AdvancedStashSorting/releases/download/1.0.6/AdvancedStashSorting-1.0.6.zip"
+    },
+    {
+      "name": "Bottom-Up Stash Sort 1.0.0 (ours)",
+      "url": "https://raw.githubusercontent.com/thatHeathenJay/spt-coop-pack/main/custom/BottomUpSort-1.0.0.zip"
     }
   ]
 }
