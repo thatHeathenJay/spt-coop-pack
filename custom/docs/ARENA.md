@@ -54,6 +54,20 @@ Arena Mode + Map Port installed on the main client, in the pack (optional for Fi
 ARENA button offers START ARENA SESSION (private relaunch). Requires EFT: Arena installed per PC.
 Validates maps, kits, rewards on our server before anything is forked.
 
+Server fork change (commit 3f043cc in the ArenaMode clone): `ArenaRewardStartup` refused to enroll rewards
+because Map Variants' `VariantSnapshot` callback shares its load priority (1). That callback only snapshots the
+database, so the fork allowlists it. Rewards now enroll (`SPT_Runtime\user\arena-rewards\<profile>`). Server-only;
+friends need nothing. `Tools\src\LoadOrderScan` lists every server mod's IOnLoad priority if this comes back.
+
+## What stock Arena Mode gives vs live Arena (progression gap)
+
+| Live Arena | Stock Arena Mode 0.4.1 | Plan |
+|---|---|---|
+| Preset catalog per class, tiers, bought with roubles/GP, unlocked by Arena level | 20 fixed kits in `kits.json`, no price, no unlock | Phase 3: extend kit entries with `tier`, `unlockLevel`, `price`; server filters kits per profile |
+| Arena XP + level, ARP rating (ranked PvP) | XP credited to the PMC profile only | Phase 3: `ArenaProgression` block in the profile (xp, level, gpCoins, unlocks); rating skipped (PvE) |
+| GP coins, Ref reputation, reward boxes | RUB by mail | Phase 3: GP coins + Ref rep + boxes replace RUB mail |
+| Ref quests | none | Phase 3: arena-result conditions |
+
 ### Phase 2: ArenaFork, Fika-aware (client)
 1. Replace the hard refusals (`ArenaClaim`, `ArenaLocalRaidStartedPatch`, `ArenaSession`,
    `ArenaWhitelistAdmission`, `PitFireTeamSelectionPolicy`, `ArenaLabyrinthAccess`, `Session/HelperDirectStart`)
