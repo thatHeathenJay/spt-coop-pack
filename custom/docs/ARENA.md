@@ -47,26 +47,64 @@ SPT.Server (one backend: profiles, rewards, arena server mod, Fika server)
   folder. Account management for free.
 - The arena folder shares `EscapeFromTarkov_Data` by directory junction (58 GB saved); own `BepInEx`.
 
-## Work plan
+## Target (user decision 2026-11-02): "EFT: Arena with bots instead of humans, or co-op"
 
-### Phase 1 (done): solo arena, stock mods
-Arena Mode + Map Port installed on the main client, in the pack (optional for Fika). With Fika loaded the
-ARENA button offers START ARENA SESSION (private relaunch). Requires EFT: Arena installed per PC.
-Validates maps, kits, rewards on our server before anything is forked.
+The whole loop is live Arena's loop. Where Arena does something, we do it or emulate it. Ranked/ARP is out.
+Facts below are live as of patch 0.6.x (Oct 2026); numbers are the calibration knobs, kept in JSON on the server.
 
-Server fork change (commit 3f043cc in the ArenaMode clone): `ArenaRewardStartup` refused to enroll rewards
-because Map Variants' `VariantSnapshot` callback shares its load priority (1). That callback only snapshots the
-database, so the fork allowlists it. Rewards now enroll (`SPT_Runtime\user\arena-rewards\<profile>`). Server-only;
-friends need nothing. `Tools\src\LoadOrderScan` lists every server mod's IOnLoad priority if this comes back.
-
-## What stock Arena Mode gives vs live Arena (progression gap)
-
-| Live Arena | Stock Arena Mode 0.4.1 | Plan |
+### Modes (official only; mutators, gun game, deathmatch, zombies, own-gear and PitFireTeam labels removed)
+| Live mode | Rules | Stock base to adapt |
 |---|---|---|
-| Preset catalog per class, tiers, bought with roubles/GP, unlocked by Arena level | 20 fixed kits in `kits.json`, no price, no unlock | Phase 3: extend kit entries with `tier`, `unlockLevel`, `price`; server filters kits per profile |
-| Arena XP + level, ARP rating (ranked PvP) | XP credited to the PMC profile only | Phase 3: `ArenaProgression` block in the profile (xp, level, gpCoins, unlocks); rating skipped (PvE) |
-| GP coins, Ref reputation, reward boxes | RUB by mail | Phase 3: GP coins + Ref rep + boxes replace RUB mail |
-| Ref quests | none | Phase 3: arena-result conditions |
+| TeamFight | 5v5, 7 rounds, no respawn in round, capture point decides after timer | Tactical (TeamArenaRoundPolicy) |
+| BlastGang | 5v5, attack plants device (40 s), defence defuses, side swap | new mode on Tactical |
+| CheckPoint | 5v5, side swap, capture and hold objectives | Domination + Tactical rounds |
+| ShootOut | 1v1 / 2v2 / 3v3 rounds | Tactical with small rosters |
+| Duel | 1v1 rounds | ShootOut 1v1 |
+| Last Hero | free-for-all rounds, last one alive wins | Rounds |
+| Overrun | 5-player PvE vs bot waves | Zombie/Endless population, PMC/scav waves |
+
+### Presets, metascore, matchmaking (live 0.2.0.0+ model)
+- Four classes: Assault, Enforcer, Scout, Marksman. 12 preset slots (3 per class), fully custom builds; 3 starter
+  presets per class; equipment is class-specific or universal.
+- Every item has a metascore. A preset shows Firepower (weapon, ammo, mods), Defense (armour, helmets),
+  Utility (meds, rigs, headsets) and Total bars, with per-class lower/upper limits (live: total 9,000-11,000,
+  later 7,500-10,000). Preset is invalid outside the limits.
+- Armory: buy with roubles + GP coins (both taken from the extraction stash, live-like sync); unlock by PMC level,
+  daily/weekly (operational) tasks, or weapon level. Ammo and most plates always available. Weapon levels: kill XP
+  (250 TeamFight/BlastGang, 100 Last Hero), each level unlocks attachments permanently; caps per weapon.
+- Matchmaking emulation: "Searching for match" with a short fake queue, then bots built from the same preset
+  catalogue, same class mix, metascore within the same bracket as the player's preset (bracket width = live band).
+  No ARP.
+- Item metascore table: not public per item. Generated once from handbook price, ammo penetration, armour class
+  and mod stats, normalised to live bands, stored in `metascore.json` and editable. ponytail: formula is the
+  ceiling; hand-tune outliers.
+
+### Rewards and progression (every number in `progression.json`)
+- Match end: PMC XP (kills, assists, device actions, result; losers get 20% of winners' max cash), roubles,
+  Battle Pass XP (per result and per mode, Last Hero +50%), weapon XP. PMC XP/level/skills go straight into the
+  extraction profile (stock already does XP); roubles, GP coins, Lega medals and crates arrive as Ref mail.
+- Operational tasks: daily (1,500 BP XP) and weekly (5,000 BP XP), reward GP coins and, for hard ones, Ref
+  reputation. Ref reputation writes to the real Ref trader standing, so his assort and quests react.
+- Battle Pass: 2,000 BP XP per level, 2 Battle Points per level; rewards bought with Battle Points, next page
+  opens after 3 claims on the current one; all rewards free; BP exchangeable for roubles/GP; overflow levels
+  compensated. Rewards: clothing, camos, masks, armour, GP coins, Lega medals, Ref drop crates (Arena only).
+- Ref quests: conditions on arena results (kills/wins per mode/map); the PvE conversions stay for the rest.
+- Not emulated: ranked/ARP, website level purchases, Tactical Map/Tactical Tokens (maybe later).
+
+### UI
+Rebuilt screen by screen to match live: main menu (Play / Presets / Armory / Battle Pass / Tasks / Profile),
+mode and map select with queue, preset editor with the four bars, armory with prices and unlock conditions,
+match HUD and round summary, post-match reward screen (XP bars, unlock pop-ups), battle pass pages.
+Visuals come from the player's own EFT: Arena install at runtime (sprites, fonts, icons, layouts), loaded the
+way Map Port loads its map bundles; nothing of BSG's ships in the pack. Logic is ours.
+
+## Work plan
+1. Phase 1 (done): solo stock Arena Mode. Validates maps, kits, rewards. Also used to pull the UI asset list.
+2. Phase 2: ArenaFork, Fika-aware client (unchanged below).
+3. Phase 3: server progression: metascore table, preset slots, armory, weapon levels, tasks, battle pass, mail
+   rewards, Ref standing, bot matchmaking by metascore. Mode trim to the official list.
+4. Phase 4: UI screens in the order Presets/Armory, Play+queue, post-match, Battle Pass, Tasks.
+5. Phase 5: `SPT.HeadlessArena`, friend docs, pack entries.
 
 ### Phase 2: ArenaFork, Fika-aware (client)
 1. Replace the hard refusals (`ArenaClaim`, `ArenaLocalRaidStartedPatch`, `ArenaSession`,
@@ -79,21 +117,9 @@ friends need nothing. `Tools\src\LoadOrderScan` lists every server mod's IOnLoad
 3. Patch mapping: every `typeof(LocalGame)` target gets a `CoopGame` twin when Fika is loaded
    (`Stop`, `CreateBotByProfile`, `vmethod_2`, reward capture).
 4. Match-state sync: custom packets via Fika's `IFikaNetworkManager.RegisterPacket<T>` on
-   `FikaNetworkManagerCreatedEvent` — mode, round, timer, scores, team assignment, capture points, kit choice.
+   `FikaNetworkManagerCreatedEvent`: mode, round, timer, scores, team assignment, capture points, kit choice.
    Host is authoritative; clients render.
 5. Bots: host-side only (unchanged). ORBIT is not in the arena client, so no conflict.
-
-### Phase 3: server
-1. Arena match lifecycle on the real server for Fika raids (Arena Mode's arm/snapshot/restore endpoints already
-   exist for direct play; extend to multi-player: one snapshot per participant).
-2. Rewards -> live-like: GP coins, Ref reputation, Arena XP/level, unlock tiers, reward boxes (a server-side
-   "ArenaProgression" block in the profile + mail). Replaces RUB mail.
-3. Ref quests: conditions driven by arena results (kills/wins per mode/map) while PvE conversions from
-   Ref SPT Friendly Quests stay for the quests we don't convert.
-
-### Phase 4: client folder + launcher + pack
-Arena folder, `SPT.LauncherArena`, friend manifest entries (arena client plugin set), Fika required/optional
-lists for the arena client, docs for friends.
 
 ## Risks
 - Fika's downed/revive is designed for teammate revive; using it as instant self-respawn needs the server
