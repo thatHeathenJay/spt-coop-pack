@@ -92,7 +92,11 @@ Facts below are live as of patch 0.6.x (Oct 2026); numbers are the calibration k
   opens after 3 claims on the current one; all rewards free; BP exchangeable for roubles/GP; overflow levels
   compensated. Rewards: clothing, camos, masks, armour, GP coins, Lega medals, Ref drop crates (Arena only).
 - Ref quests: conditions on arena results (kills/wins per mode/map); the PvE conversions stay for the rest.
-- Not emulated: ranked/ARP, website level purchases, Tactical Map/Tactical Tokens (maybe later).
+- Shop (user decision 2026-11-02): emulated with the live screen, but every real-money price becomes a GP coin
+  price (catalogue + prices in `shop.json`; clothing, camos, masks, armbands, crates, Battle Pass levels at
+  10 levels + 30 BP per bundle). GP coins are the one currency the player earns by playing, so the shop is a
+  sink for them, never a wallet.
+- Not emulated: ranked/ARP, Tactical Map/Tactical Tokens (maybe later).
 
 ### UI (user decision: from the main menu on, indistinguishable from live Arena)
 Hard fact (2026-11-02): live EFT: Arena is Unity 6000.3.6f1 + IL2CPP; the EFT/SPT client is Unity 2022.3.43f1
