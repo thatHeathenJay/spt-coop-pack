@@ -1,0 +1,50 @@
+{
+  "sptVersion": "4.1.6",
+  "eftFileVersion": "0.16.9.40743",
+  "note": "Arena client pack. Installed into <SPT folder>-Arena, a second client that shares the game data by junction and logs into the same server/profile. Requires EFT: Arena installed via the BSG launcher for the four ported maps.",
+  "baseFromMain": {
+    "plugins": [
+      "spt",
+      "SAIN",
+      "DrakiaXYZ-Waypoints",
+      "acidphantasm-botplacementsystem",
+      "WTT-ClientCommonLib",
+      "WTT-ContentBackportClient",
+      "ozen.ContinuousLoadAmmo",
+      "LoadAmmoAnim",
+      "mpstark-dynamicmaps",
+      "DrakiaXYZ-BigBrain.dll",
+      "BetterBepInEx.dll",
+      "FOVFix.dll"
+    ],
+    "patchers": [
+      "spt-prepatch.dll",
+      "FixPluginTypesSerialization.dll",
+      "WTT-ContentBackportPatcher"
+    ],
+    "configs": [
+      "BepInEx.cfg",
+      "com.bepis.bepinex.configurationmanager.cfg",
+      "FixPluginTypesSerialization.cfg",
+      "me.sol.sain.cfg",
+      "com.wtt.commonlib.cfg"
+    ],
+    "bundleMods": [
+      "WTT-ContentBackport",
+      "LoadAmmoAnimServer",
+      "CSGasServer",
+      "AllTheClothes",
+      "DrakiaXYZ-GildedKeyStorage"
+    ]
+  },
+  "mods": [
+    {
+      "name": "Arena Mode 0.4.1",
+      "url": "https://github.com/maschine34675/ArenaMode/releases/download/v0.4.1/ArenaMode-0.4.1.zip"
+    },
+    {
+      "name": "Arena Map Port 0.4.0 (3.6 GB)",
+      "url": "https://pixeldrain.com/api/file/52B6fo1G?download"
+    }
+  ]
+}

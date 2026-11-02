@@ -62,6 +62,21 @@ Bot difficulty, raid length, found-in-raid rules, and spawns are all set on the 
 
 Use **PLAY.bat** instead of SPT.Launcher. It checks the host for pack changes, installs or removes whatever changed, then opens the launcher. Takes a few seconds when nothing changed. If the host's pack server is unreachable it just launches with what you have.
 
+## Arena (optional)
+
+Arena is a separate game client with its own launcher. You only need it if you want to play Arena modes.
+It needs **Escape from Tarkov: Arena** installed through the BSG launcher on your PC for the four Arena maps.
+
+1. Double-click **INSTALL-ARENA.bat**. It builds a second client folder next to your SPT folder (named
+   `<your SPT folder>-Arena`), sharing the game data so it does not cost another 60 GB, and downloads the
+   Arena mods (about 3.7 GB).
+2. Double-click **PLAY-ARENA.bat** to play. It syncs the arena pack and opens the Arena launcher. Pick the
+   same server and the same profile as in extraction. Arena uses supplied kits; nothing from your stash is
+   at risk.
+3. Select **ARENA** beside PMC and Scav. Matches start directly.
+
+Extraction is unchanged whether or not you install Arena.
+
 ## Updating later
 
 You normally never need a new zip. If the host does send one, replace your FriendPack folder and run PLAY.bat.
