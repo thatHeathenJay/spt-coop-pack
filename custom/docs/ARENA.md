@@ -94,12 +94,17 @@ Facts below are live as of patch 0.6.x (Oct 2026); numbers are the calibration k
 - Ref quests: conditions on arena results (kills/wins per mode/map); the PvE conversions stay for the rest.
 - Not emulated: ranked/ARP, website level purchases, Tactical Map/Tactical Tokens (maybe later).
 
-### UI
-Rebuilt screen by screen to match live: main menu (Play / Presets / Armory / Battle Pass / Tasks / Profile),
-mode and map select with queue, preset editor with the four bars, armory with prices and unlock conditions,
-match HUD and round summary, post-match reward screen (XP bars, unlock pop-ups), battle pass pages.
-Visuals come from the player's own EFT: Arena install at runtime (sprites, fonts, icons, layouts), loaded the
-way Map Port loads its map bundles; nothing of BSG's ships in the pack. Logic is ours.
+### UI (user decision: must feel almost exactly like live Arena)
+Target is near-identical, not "inspired by". Method: load live Arena's own menu prefabs from the player's
+EFT: Arena install at runtime (Map Port already decrypts and loads Arena bundles). EFT and Arena share the
+Unity version and the UI stack (uGUI + TextMeshPro), so a loaded prefab keeps its hierarchy, layout, sprites,
+fonts, colours and animations; only Arena's own MonoBehaviours come up as missing scripts, and those are the
+behaviour we write and attach. Screens, in build order: Presets (editor with the four bars, class tabs,
+character preview via EFT's PlayerModelView), Armory, Play (mode/map select, queue), post-match (XP bars, round
+summary, unlock pop-ups), Battle Pass pages, Tasks, Profile. Nothing of BSG's ships in the pack; friends without
+Arena installed never see these screens. First task once the Arena install finishes: inventory its UI bundles
+(`EscapeFromTarkovArena_Data\StreamingAssets\Windows`) and confirm the menu prefabs load in the EFT client.
+Fallback for any prefab that will not load: rebuild that screen on EFT widgets with Arena sprites.
 
 ## Work plan
 1. Phase 1 (done): solo stock Arena Mode. Validates maps, kits, rewards. Also used to pull the UI asset list.
