@@ -94,17 +94,30 @@ Facts below are live as of patch 0.6.x (Oct 2026); numbers are the calibration k
 - Ref quests: conditions on arena results (kills/wins per mode/map); the PvE conversions stay for the rest.
 - Not emulated: ranked/ARP, website level purchases, Tactical Map/Tactical Tokens (maybe later).
 
-### UI (user decision: must feel almost exactly like live Arena)
-Target is near-identical, not "inspired by". Method: load live Arena's own menu prefabs from the player's
-EFT: Arena install at runtime (Map Port already decrypts and loads Arena bundles). EFT and Arena share the
-Unity version and the UI stack (uGUI + TextMeshPro), so a loaded prefab keeps its hierarchy, layout, sprites,
-fonts, colours and animations; only Arena's own MonoBehaviours come up as missing scripts, and those are the
-behaviour we write and attach. Screens, in build order: Presets (editor with the four bars, class tabs,
-character preview via EFT's PlayerModelView), Armory, Play (mode/map select, queue), post-match (XP bars, round
-summary, unlock pop-ups), Battle Pass pages, Tasks, Profile. Nothing of BSG's ships in the pack; friends without
-Arena installed never see these screens. First task once the Arena install finishes: inventory its UI bundles
-(`EscapeFromTarkovArena_Data\StreamingAssets\Windows`) and confirm the menu prefabs load in the EFT client.
-Fallback for any prefab that will not load: rebuild that screen on EFT widgets with Arena sprites.
+### UI (user decision: from the main menu on, indistinguishable from live Arena)
+Hard fact (2026-11-02): live EFT: Arena is Unity 6000.3.6f1 + IL2CPP; the EFT/SPT client is Unity 2022.3.43f1
+Mono. A 2022 player cannot load Unity 6 assets, so Arena's menu prefabs cannot be loaded at runtime. Map Port
+does not do that either: it ships its own ported map bundles and only checks the Arena install (keys/ + install
+path) as the licence gate.
+
+Method that reaches "identical":
+1. **Extract, don't load.** AssetRipper (supports 6000.x) rips the Arena install offline: UI sprites, atlases,
+   fonts, colours, and every menu prefab/scene as YAML with exact RectTransform anchors, sizes, paddings,
+   layout groups, sprite refs and TMP text settings.
+2. **Layout transpiler.** `tools/arena-ui-export.py` turns those YAML hierarchies into our own JSON layout
+   files (one per screen) keyed by object name. The arena client plugin rebuilds each screen at runtime from the
+   JSON + ripped sprites: same tree, same numbers, same art, same fonts. No hand-measuring, so no drift.
+3. **Behaviour is ours**, attached by object name: button handlers, bar fills, list binding, animations
+   re-created from the ripped Animator/DOTween params where present.
+4. **Friends' PCs:** INSTALL-ARENA runs the same rip + transpile against their own Arena install into their
+   arena client folder. The repo ships the transpiler and the behaviour plugin only, never BSG art. No Arena
+   install = no arena client (same gate as Map Port).
+5. **Whole shell replaced** in the arena client: EFT's main menu, bottom bar, settings, inventory and
+   post-raid screens are swapped for Arena's (menu, Play, Presets, Armory, Battle Pass, Tasks, Profile,
+   match HUD, round/match results). Extraction client is untouched.
+Known gaps that stay visible: the loading screen before the Arena menu (SPT launcher + EFT splash), and
+Arena features we do not emulate (ranked, shop, Tactical Map).
+First task once the install finishes: rip, inventory the screens, confirm sprite/font coverage.
 
 ## Work plan
 1. Phase 1 (done): solo stock Arena Mode. Validates maps, kits, rewards. Also used to pull the UI asset list.
