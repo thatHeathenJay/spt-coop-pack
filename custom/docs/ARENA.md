@@ -75,9 +75,12 @@ Facts below are live as of patch 0.6.x (Oct 2026); numbers are the calibration k
 - Matchmaking emulation: "Searching for match" with a short fake queue, then bots built from the same preset
   catalogue, same class mix, metascore within the same bracket as the player's preset (bracket width = live band).
   No ARP.
-- Item metascore table: not public per item. Generated once from handbook price, ammo penetration, armour class
-  and mod stats, normalised to live bands, stored in `metascore.json` and editable. ponytail: formula is the
-  ceiling; hand-tune outliers.
+- Item metascore table: not public per item. `tools/generate-metascore.py` (fork clone) derives one from item
+  stats (pen/damage, weapon ergo/recoil/fire modes, mod recoil/ergo/zoom, armour class/durability/zones, meds,
+  rigs, headsets, grenades) and calibrates on two reference builds: ADAR+M855+6B5-15+Kiver = 7,500 floor,
+  full-mod M4A1+M995+Zabralo+Altyn+Grizzly+ComTac = 10,000 ceiling. Written to `defaults/metascore.json` and the
+  live server config. First run: 17 of 20 stock kits inside the band, the three class-6 kits just over.
+  ponytail: linear weights are the ceiling; hand-tune outliers.
 
 ### Rewards and progression (every number in `progression.json`)
 - Match end: PMC XP (kills, assists, device actions, result; losers get 20% of winners' max cash), roubles,
@@ -101,7 +104,7 @@ way Map Port loads its map bundles; nothing of BSG's ships in the pack. Logic is
 ## Work plan
 1. Phase 1 (done): solo stock Arena Mode. Validates maps, kits, rewards. Also used to pull the UI asset list.
 2. Phase 2: ArenaFork, Fika-aware client (unchanged below).
-3. Phase 3: server progression: metascore table, preset slots, armory, weapon levels, tasks, battle pass, mail
+3. Phase 3: server progression: metascore table (generator done 2026-11-02), preset slots, armory, weapon levels, tasks, battle pass, mail
    rewards, Ref standing, bot matchmaking by metascore. Mode trim to the official list.
 4. Phase 4: UI screens in the order Presets/Armory, Play+queue, post-match, Battle Pass, Tasks.
 5. Phase 5: `SPT.HeadlessArena`, friend docs, pack entries.
