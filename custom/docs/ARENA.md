@@ -125,7 +125,10 @@ Arena features we do not emulate (ranked, shop, Tactical Map).
 First task once the install finishes: rip, inventory the screens, confirm sprite/font coverage.
 
 ## Work plan
-1. Phase 1 (done): solo stock Arena Mode. Validates maps, kits, rewards. Also used to pull the UI asset list.
+1. Phase 1 (passed 2026-11-02): solo match through the non-Fika arena client against the Fika server, ported map,
+   kits, bots, respawn all fine, zero client errors. Needed: SPT_Data junction + working directory for the arena
+   launcher, and a user whitelist file (`overrides-arena/BepInEx/config/com.maschine.ArenaMode.whitelist.json`,
+   unlisted allowed, ORBIT allowed) because the policy also checks the server's mod list.
 2. Phase 2: ArenaFork, Fika-aware client (unchanged below).
 3. Phase 3: server progression: metascore table (generator done 2026-11-02), preset slots, armory, weapon levels, tasks, battle pass, mail
    rewards, Ref standing, bot matchmaking by metascore. Mode trim to the official list.
