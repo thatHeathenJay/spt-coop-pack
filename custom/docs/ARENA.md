@@ -75,12 +75,13 @@ Facts below are live as of patch 0.6.x (Oct 2026); numbers are the calibration k
 - Matchmaking emulation: "Searching for match" with a short fake queue, then bots built from the same preset
   catalogue, same class mix, metascore within the same bracket as the player's preset (bracket width = live band).
   No ARP.
-- Item metascore table: not public per item. `tools/generate-metascore.py` (fork clone) derives one from item
-  stats (pen/damage, weapon ergo/recoil/fire modes, mod recoil/ergo/zoom, armour class/durability/zones, meds,
-  rigs, headsets, grenades) and calibrates on two reference builds: ADAR+M855+6B5-15+Kiver = 7,500 floor,
-  full-mod M4A1+M995+Zabralo+Altyn+Grizzly+ComTac = 10,000 ceiling. Written to `defaults/metascore.json` and the
-  live server config. First run: 17 of 20 stock kits inside the band, the three class-6 kits just over.
-  ponytail: linear weights are the ceiling; hand-tune outliers.
+- Item metascore table (schema 2, 2026-11-03): live MP values for 261 items (every Armory weapon, body armour,
+  eyewear, med, stim, pill, melee; ammo per round with class access) from the Japanese wiki Armory/ammo tables at
+  patch 0.6.0, packaged by Codex in `tools/live-data/codex-2026-11-03` and joined to SPT template ids by
+  `tools/map-templates.py` (375 of 389 records, incl. Content Backport 1.0 items). Helmets, plates, rigs, headsets,
+  grenades, magazines and mods use the package's category seeds applied to SPT item stats. Accounting: a weapon's
+  live MP covers its default preset mods; ammo is per round; inserts and plates inside a valued armour are not
+  added. `tools/generate-metascore.py` writes `defaults/metascore.json` and the live server copy.
 
 ### Rewards and progression (every number in `progression.json`)
 - Match end: PMC XP (kills, assists, device actions, result; losers get 20% of winners' max cash), roubles,
