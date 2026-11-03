@@ -173,6 +173,12 @@ RespawnProvider, MatchStateSink) that the Fika plugin fills in. Steps:
    `ArenaTeamBoxRuntime` and armband colours follow the packet on clients.
 6. Solo with Fika loaded (one human): the same path works because the downed gate is patched open; no Redeploy.
 
+Status 2026-11-03: steps 1 and 2 scaffolded and compiling in the fork (commit dae157f): `ArenaMode.Client/Compat/ArenaCoop`
+bridge, seven refusal sites rerouted, new `ArenaMode.Fika` plugin (hard deps com.fika.core + ArenaMode; patches
+ReviveEnabled/CanBeDowned/instant-kill, freezes Bleedout, hides its UI, observers get no revive prompt; respawn routine
+= un-down, teleport to a player spawn point 25 m+ from the corpse, full health, in-place refill of magazines,
+durability and meds). Not deployed to the arena client yet (Phase 1 solo test on stock first). Untested in a raid.
+
 ## Risks
 - Fika's downed/revive is designed for teammate revive; using it as instant self-respawn needs the server
   revive config and client patches to agree (bleedout timers, revive counts).
