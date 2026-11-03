@@ -1,0 +1,8 @@
+{
+  "schema": 1,
+  "unlisted": "allow",
+  "allow": [
+    { "guid": "com.chazut.orbit", "name": "ORBIT (server-side only on this host; the arena client carries no ORBIT plugin)", "kind": "mod" }
+  ],
+  "deny": []
+}
