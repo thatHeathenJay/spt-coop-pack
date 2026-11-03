@@ -192,6 +192,18 @@ machinery. Respawn fired but in place; now picks a spawn through the raid's spaw
 DynamicMaps removed from the arena client on 2026-11-02 (user decision: no map overlay in arena); arena Fika list regenerated (14 required).
 User priorities for the next build: Arena in-match UI from the rip (menus later), kits rebuilt on Arena's presets.
 
+Status 2026-11-02 (build 3, fork commit e9e6ff1): in-match HUD now renders EFT: Arena's own widgets. Client
+`Hud/Live/` = `ArenaUiPack` (loads layout JSON + PNGs from `BepInEx/plugins/maschine-ArenaMode/arena-ui`),
+`ArenaUiBuilder` (JSON tree -> RectTransform/Image/TMP/layout groups/fitters/masks), `ArenaLiveHud` (score|timer|score
+strip = ArenaCheckPointWidget, objective line = ArenaRoundGoalWidget, kill log rows = KillLogItemPrefab with live
+weapon silhouettes, round notices = ArenaRoundInfoItem, hold-Tab team table = ArenaTeamTabWidget, VICTORY/DEFEAT =
+ArenaFinalResultWidget); stock hitmarker + friendly markers kept; stock panels only when the pack is missing.
+The pack is built per PC from the player's own rip by `tools/pack-arena-ui.py <arena-ui json> <rip Assets> <out>
+--db <SPT database>` (34 MB, BSG assets, never in a repo; INSTALL-ARENA must run rip + export + pack, Phase 5).
+Kits: `tools/generate-arena-kits.py` writes 12 Arena starter presets (3 per class, live initially-unlocked
+weapons, class armour rules from classes.json, class ammo); deployed to the server's config/kits.json (stock kept as
+kits.stock-0.4.1.json). Known gap: derived metascores put light kits under the 7,500 band (armour/ammo table).
+
 ## Risks
 - Fika's downed/revive is designed for teammate revive; using it as instant self-respawn needs the server
   revive config and client patches to agree (bleedout timers, revive counts).
