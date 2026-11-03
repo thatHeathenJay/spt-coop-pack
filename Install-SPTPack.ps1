@@ -76,7 +76,7 @@ if ($Arena) {
     foreach ($m in $b.bundleMods) { if (Test-Path "$MainRoot\SPT_Runtime\user\mods\$m") { Junction "$SptRoot\SPT_Runtime\user\mods\$m" "$MainRoot\SPT_Runtime\user\mods\$m" } }
     # own launcher: same launcher binaries, GamePath -> arena folder, same server list
     Get-ChildItem "$MainRoot\SPT_Runtime" -File | Where-Object { $_.Name -notmatch '^SPT\.Server' } | Copy-Item -Destination "$SptRoot\SPT_Runtime" -Force
-    foreach ($d in 'Launcher','dotnet','SPT_Data','usersptSettings') { if (Test-Path "$MainRoot\SPT_Runtime\$d") { Junction "$SptRoot\SPT_Runtime\$d" "$MainRoot\SPT_Runtime\$d" } }
+    foreach ($d in 'Launcher','dotnet','SPT_Data','user\sptSettings') { if (Test-Path "$MainRoot\SPT_Runtime\$d") { Junction "$SptRoot\SPT_Runtime\$d" "$MainRoot\SPT_Runtime\$d" } }
     $lsPath = "$SptRoot\SPT_Runtime\user\launcher\LauncherSettings.json"
     if (-not (Test-Path $lsPath)) {
         $ls = Get-Content "$MainRoot\SPT_Runtime\user\launcher\LauncherSettings.json" -Raw | ConvertFrom-Json
