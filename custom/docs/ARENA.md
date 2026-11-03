@@ -192,6 +192,14 @@ machinery. Respawn fired but in place; now picks a spawn through the raid's spaw
 DynamicMaps removed from the arena client on 2026-11-02 (user decision: no map overlay in arena); arena Fika list regenerated (14 required).
 User priorities for the next build: Arena in-match UI from the rip (menus later), kits rebuilt on Arena's presets.
 
+Status 2026-11-03 (build 4, fork commit 0835f94): Killcam dropped from the pack (death card alone covers the
+dying view). Custom loadouts: Presets screen CUSTOMIZE copies a stock preset, EDIT makes gear cells clickable and
+swaps from the server armory (`/arenamode/armory`, `/arenamode/presets/edit`; per-profile files under the server
+mod's `config/custom-presets/`). Team DM scoreboard seats are fixed per bot slot, so the enemy table keeps its
+stats across bot deaths. Bots spawn without backpacks. SAIN: the Arena client forces the server-side `Arena` preset
+(`Solarint-SAIN-ServerMod/Presets/Arena.json`) via `[Bots] SainPreset` in com.maschine.ArenaMode.cfg; the extraction
+client keeps Coop Chill.
+
 Status 2026-11-02 (build 3, fork commit e9e6ff1): in-match HUD now renders EFT: Arena's own widgets. Client
 `Hud/Live/` = `ArenaUiPack` (loads layout JSON + PNGs from `BepInEx/plugins/maschine-ArenaMode/arena-ui`),
 `ArenaUiBuilder` (JSON tree -> RectTransform/Image/TMP/layout groups/fitters/masks), `ArenaLiveHud` (score|timer|score
