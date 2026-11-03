@@ -189,7 +189,8 @@ admitted, reward captured). Fixes on the way there: Fika lobby must be shown (no
 Fika's cached match location in place, LocalGame alias to the base game class + ArenaGameType for concrete Harmony
 targets, Redeploy accessors widened, bot game = IBotGame singleton, co-op entry kit via the protected-team entry
 machinery. Respawn fired but in place; now picks a spawn through the raid's spawn system (team boxes apply).
-Known: stock Arena Mode UI and DynamicMaps overlay still show in the arena client (Phase 4 replaces/removes).
+DynamicMaps removed from the arena client on 2026-11-02 (user decision: no map overlay in arena); arena Fika list regenerated (14 required).
+User priorities for the next build: Arena in-match UI from the rip (menus later), kits rebuilt on Arena's presets.
 
 ## Risks
 - Fika's downed/revive is designed for teammate revive; using it as instant self-respawn needs the server
