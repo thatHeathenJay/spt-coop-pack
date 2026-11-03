@@ -132,20 +132,46 @@ First task once the install finishes: rip, inventory the screens, confirm sprite
 4. Phase 4: UI screens in the order Presets/Armory, Play+queue, post-match, Battle Pass, Tasks.
 5. Phase 5: `SPT.HeadlessArena`, friend docs, pack entries.
 
-### Phase 2: ArenaFork, Fika-aware (client)
-1. Replace the hard refusals (`ArenaClaim`, `ArenaLocalRaidStartedPatch`, `ArenaSession`,
-   `ArenaWhitelistAdmission`, `PitFireTeamSelectionPolicy`, `ArenaLabyrinthAccess`, `Session/HelperDirectStart`)
-   with a capability flag: Fika present => "co-op arena" path.
-2. **In-place respawn under Fika**: a second Redeploy driver that never replaces the body. On lethal damage
-   use Fika's synced downed/revive primitive (`FikaPlayer.ToggleDowned`, `ClientHealthController.Revive`,
-   `DownedSyncPacket`) -> revive immediately, teleport to a team spawn, restore health, re-equip the kit.
-   Same `Player` object, so Fika's position/health/inventory sync just works.
-3. Patch mapping: every `typeof(LocalGame)` target gets a `CoopGame` twin when Fika is loaded
-   (`Stop`, `CreateBotByProfile`, `vmethod_2`, reward capture).
-4. Match-state sync: custom packets via Fika's `IFikaNetworkManager.RegisterPacket<T>` on
-   `FikaNetworkManagerCreatedEvent`: mode, round, timer, scores, team assignment, capture points, kit choice.
-   Host is authoritative; clients render.
-5. Bots: host-side only (unchanged). ORBIT is not in the arena client, so no conflict.
+### Phase 2: ArenaFork, Fika-aware (client) — design 2026-11-03, from Fika 2.4.6 and Redeploy source
+Facts that shape it:
+- Redeploy.Core refuses under Fika at engine level (`DeathInterception.IsAvailable` -> false when Fika loaded), and
+  its whole pipeline is body replacement. Not usable in co-op; keep it for solo.
+- Fika's revive system already does what arena needs: lethal damage -> `ClientHealthController.SendNetworkSyncPacket`
+  -> `TryProcessDownedState` -> `FikaPlayer.ToggleDowned(true)` (prone, `DownedSyncPacket` to everyone). Revive =
+  `ToggleDowned(false)` (restores IsAlive, damage coeff, `Revive()`), `RevivedPlayerPacket` on the wire. Teleport is
+  EFT's `Player.Teleport`, synced by Fika's movement packets. Health restore syncs through `HealthSyncPacket`.
+  Observers can rebuild a player's whole inventory from an `ItemDescriptor` (`ObservedPlayer.SetInventory`).
+- Downed is gated: `CanBeDowned` requires another living human (`CanBeRevivedByOtherPlayer`), revive count under
+  `MaxRevives`, and no headshot/grenade instant kill. All three are patched open inside an arena match.
+- Fika mod API: `FikaEventDispatcher` events (`FikaNetworkManagerCreatedEvent`, `FikaGameCreatedEvent`,
+  `FikaRaidStartedEvent`, `FikaGameEndedEvent`), `IFikaNetworkManager.RegisterPacket<T>` + `SendData/SendGenericPacket`,
+  `FikaBackendUtils.IsServer` for host authority. `CoopGame : BaseLocalGame<EftGamePlayerOwner>` overrides vmethod_1..7,
+  Stop, Dispose; bots are spawned by the host only.
+
+Build as a separate plugin **ArenaMode.Fika** (hard BepInDependency on com.fika.core, references Fika.Core.dll) so
+ArenaMode.Client keeps no Fika reference. ArenaMode.Client exposes a small bridge (`ArenaCoop` static: IsAvailable,
+RespawnProvider, MatchStateSink) that the Fika plugin fills in. Steps:
+1. Refusals -> capability. The seven Fika refusal sites (`ArenaClaim`, `ArenaLocalRaidStartedPatch`, `ArenaSession`
+   ~405, `ArenaWhitelistAdmission.HasFika`, `PitFireTeamSelectionPolicy`, `ArenaLabyrinthAccess`,
+   `HelperDirectStart`) become `FikaCompatCheck.IsFikaLoaded && !ArenaCoop.IsAvailable`.
+2. In-place respawn (ArenaMode.Fika/Respawn): Harmony on `ClientHealthController.get_CanBeDowned` -> true and
+   `CheckIfDamageShouldInstantKill` -> false while an arena match with respawns runs; postfix on
+   `FikaPlayer.ToggleDowned(true)` for the local player raises `ArenaEvents.PlayerDied` (scores the kill from
+   `LatestDamageInfo`) and starts the respawn coroutine: wait `IArenaMode.HoldRespawn` / live respawn rule (manual
+   Space or auto), pick spawn via `ArenaSpawnSelector`, `ToggleDowned(false)`, `Teleport`, `RestoreFullHealth`,
+   restore the kit in place (ammo, durability, meds) for the same preset; on a preset change between rounds rebuild
+   equipment and send `ArenaInventorySyncPacket(netId, ItemDescriptor)` so observers call `SetInventory`.
+   `IArenaMode.OnLocalRespawn(player)` receives the same body.
+3. LocalGame -> CoopGame patch twins: `Stop` (ArenaTeamBoxRuntime, ArenaRewardCapture), `vmethod_2`
+   (FastDeployPatches), `CreateBotByProfile` sites (PitFireTeamRoundLifecycle) get a second target resolved to
+   `CoopGame` when Fika is loaded; `BaseLocalGame<EftGamePlayerOwner>` targets already apply.
+4. Match authority: the Fika host runs the mode (`ArenaMatchService` as today); clients run a mirror that only renders
+   HUD and honours HoldRespawn. Packets registered on `FikaNetworkManagerCreatedEvent`: `ArenaMatchStatePacket`
+   (mode, round, phase, timer, scores, team of each netId, capture state), `ArenaRoundEventPacket` (round start/end,
+   plant/defuse, MVP), `ArenaKitChoicePacket` (client -> host), `ArenaInventorySyncPacket`. Bots: host only, as now.
+5. Team assignment: host assigns humans and bots to sides at arm time and sends it in the first state packet; the
+   `ArenaTeamBoxRuntime` and armband colours follow the packet on clients.
+6. Solo with Fika loaded (one human): the same path works because the downed gate is patched open; no Redeploy.
 
 ## Risks
 - Fika's downed/revive is designed for teammate revive; using it as instant self-respawn needs the server
