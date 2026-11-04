@@ -170,7 +170,12 @@ try {
 Step 'Transpiling the menu prefabs'
 $layouts = Join-Path $scratch 'layouts'
 if (Test-Path $layouts) { Remove-Item -Recurse -Force $layouts }
-& $python (Join-Path $tools 'arena-ui-export.py') $assets $layouts
+# Exactly the prefabs the packer wants (its LAYOUTS list), not every "Arena*" prefab: the shared parts (Header,
+# Footer, PresetViewCard, MatchInfoPanel ...) carry no prefix.
+$packer = Get-Content (Join-Path $tools 'pack-arena-ui.py') -Raw
+if ($packer -notmatch '(?s)LAYOUTS = \[(.*?)\]') { throw 'pack-arena-ui.py has no LAYOUTS list.' }
+$wanted = [regex]::Matches($Matches[1], "'([^']+)'") | ForEach-Object { $_.Groups[1].Value }
+& $python (Join-Path $tools 'arena-ui-export.py') $assets $layouts @wanted
 if ($LASTEXITCODE -ne 0) { throw 'The layout transpiler failed.' }
 
 Step 'Packing the UI'
