@@ -75,9 +75,13 @@ read their assets from that install.
 
 1. Double-click **INSTALL-ARENA.bat**. It builds the arena client folder by sharing your SPT game data (no second
    60 GB copy), downloads the Arena mods (about 3.7 GB) and applies the host's configs.
-2. Double-click **PLAY-ARENA.bat** to play. It syncs the arena pack and opens the Arena launcher. Pick the same
+2. It then builds the live Arena menus and HUD from **your own** Arena install: it fetches AssetRipper and a
+   portable Python into a scratch folder, reads your Arena files, keeps the ~250 MB of sprites, fonts and sounds the
+   menus use, and deletes the scratch folder. Expect 10 to 30 minutes and about 14 GB free on the drive while it
+   runs. If Arena is not at the default BSG path it asks for the folder. Nothing of BSG's is downloaded.
+3. Double-click **PLAY-ARENA.bat** to play. It syncs the arena pack and opens the Arena launcher. Pick the same
    server and the same profile as in extraction.
-3. Main menu: **ARENA BATTLE** picks the mode and arenas, **MY PRESETS** picks or edits your kit. Matches start
+4. Main menu: **ARENA BATTLE** picks the mode and arenas, **MY PRESETS** picks or edits your kit. Matches start
    from the Fika lobby as usual.
 
 The host runs the server in arena mode (**SPT.ServerArena.bat**) while you play arena, and in the normal mode

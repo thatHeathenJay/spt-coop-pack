@@ -47,7 +47,7 @@
     }
   ],
   "arenaUi": {
-    "note": "Live Arena UI pack (BSG assets ripped from the player's own EFT: Arena install). Leave empty to use the stock HUD; set to a download URL to install it into BepInEx/plugins/maschine-ArenaMode/arena-ui.",
+    "note": "Live Arena UI pack. Empty: built on each PC from its own EFT: Arena install by custom/tools/arena-ui/Build-ArenaUi.ps1 (nothing of BSG's is downloaded). A URL here would install a download instead.",
     "url": ""
   }
 }

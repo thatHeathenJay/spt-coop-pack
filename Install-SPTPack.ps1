@@ -50,6 +50,7 @@ if ($packCfg.packUrl) {
         if ($src) {
             foreach ($f in 'manifest.json','manifest-arena.json','INSTALL.md') { $p = Join-Path $src.DirectoryName $f; if (Test-Path $p) { Copy-Item $p "$pack\$f" -Force } }
             foreach ($o in 'overrides','overrides-arena') { $ov = Join-Path $src.DirectoryName $o; if (Test-Path $ov) { if (Test-Path "$pack\$o") { Remove-Item "$pack\$o" -Recurse -Force }; Copy-Item $ov "$pack\$o" -Recurse } }
+            $tl = Join-Path $src.DirectoryName 'custom\tools'; if (Test-Path $tl) { if (Test-Path "$pack\custom\tools") { Remove-Item "$pack\custom\tools" -Recurse -Force }; New-Item -ItemType Directory -Force "$pack\custom" | Out-Null; Copy-Item $tl "$pack\custom\tools" -Recurse }
             Write-Host '  pack definition updated from host'
         }
     } else { Write-Host '  host unreachable, using the local pack definition' -ForegroundColor Yellow }
@@ -165,8 +166,13 @@ if ($Arena) {
             if (-not (Test-Path (Join-Path $uiDir 'layouts'))) { Fail 'The Arena UI pack did not unpack to an arena-ui folder with layouts.' }
             $installed['__arenaUi__'] = $uiUrl; SaveState
         }
-    } elseif (-not (Test-Path $uiDir)) {
-        Write-Host 'No Arena UI pack in the manifest: the stock Arena Mode HUD and menus are used.' -ForegroundColor Yellow
+    } elseif (-not (Test-Path (Join-Path $uiDir 'layouts'))) {
+        # Built here, from this PC's own EFT: Arena install. Nothing of BSG's is downloaded.
+        Write-Host 'Building the live Arena UI pack from your EFT: Arena install (10 to 30 minutes, needs ~14 GB free while it runs)...' -ForegroundColor Green
+        $builder = Join-Path $pack 'custom\tools\arena-ui\Build-ArenaUi.ps1'
+        if (-not (Test-Path $builder)) { Fail "Arena UI builder missing from the pack: $builder" }
+        & $builder -SptRoot $MainRoot -ArenaRoot $SptRoot -Work $work
+        if (-not (Test-Path (Join-Path $uiDir 'layouts'))) { Fail 'The Arena UI pack was not built; see the messages above. Arena still runs with the stock HUD.' }
     }
 }
 
