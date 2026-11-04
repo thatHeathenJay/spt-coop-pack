@@ -20,7 +20,7 @@ This confirms the base install works. Do not skip it.
 
 1. Copy the whole **FriendPack** folder into your SPT folder. It must sit next to EscapeFromTarkov.exe.
 2. Double-click **INSTALL.bat**. A window opens and shows progress.
-3. Let it run. It downloads about 9 GB and installs 53 mods. Expect 20 to 60 minutes.
+3. Let it run. It downloads about 14 GB (56 mods plus about 5 GB of camo and sticker texture packs) and expects 30 to 90 minutes.
 4. When it says Done, press Enter.
 
 If Windows SmartScreen pops up, click More info, then Run anyway.

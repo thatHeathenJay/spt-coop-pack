@@ -123,8 +123,14 @@ foreach ($m in $mods) {
     }
     $x = Join-Path $work ('x\' + [IO.Path]::GetFileNameWithoutExtension($file))
     if (Test-Path $x) { Remove-Item $x -Recurse -Force }
-    if ($file -like '*.zip') { Expand-Archive -LiteralPath $file -DestinationPath $x -Force }
+    # some packs are 7z archives with a .zip name: sniff the '7z' magic instead of trusting the extension
+    $fs = [IO.File]::OpenRead($file); $magic = New-Object byte[] 2; $fs.Read($magic, 0, 2) | Out-Null; $fs.Close()
+    $is7z = ($magic[0] -eq 0x37 -and $magic[1] -eq 0x7A)
+    if ($file -like '*.zip' -and -not $is7z) { Expand-Archive -LiteralPath $file -DestinationPath $x -Force }
     else { & $sz x $file "-o$x" -y | Out-Null; if ($LASTEXITCODE -ne 0) { Fail "Extract failed: $file" } }
+    # some packs wrap everything in a top folder: descend to wherever BepInEx actually is
+    $xTop = $x
+    if (-not (Test-Path "$x\BepInEx")) { $hit = Get-ChildItem $x -Recurse -Depth 2 -Directory | Where-Object { $_.Name -ieq 'BepInEx' } | Select-Object -First 1; if ($hit) { $x = $hit.Parent.FullName } }
     # SPT_Runtime is copied too: the client reads mod bundles from user\mods\<mod>\bundles
     # locally instead of downloading 8+ GB from the host on first launch. No server runs here.
     $placed = @()
@@ -135,7 +141,7 @@ foreach ($m in $mods) {
         }
     }
     $installed[$m.url] = $placed; SaveState
-    Remove-Item $x -Recurse -Force
+    Remove-Item $xTop -Recurse -Force
 }
 
 # ---- host config overrides: apply only files the host changed ------------
