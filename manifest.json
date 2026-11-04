@@ -144,10 +144,6 @@
       "url": "https://github.com/JoelHauser/CabinetSearch/releases/download/v1.0.3/CabinetLooter-1.0.3.zip"
     },
     {
-      "name": "QuickSellFlea 1.4.5",
-      "url": "https://github.com/Lacyway/QuickSellFlea/releases/download/v1.4.5/QuickSellFlea.zip"
-    },
-    {
       "name": "Search Open Containers 1.5.0",
       "url": "https://github.com/DrakiaXYZ/SPT-SearchOpenContainers/releases/download/1.5.0/DrakiaXYZ-SearchOpenContainers-1.5.0.7z"
     },
@@ -214,6 +210,18 @@
     {
       "name": "Bottom-Up Stash Sort 1.0.0 (ours)",
       "url": "https://raw.githubusercontent.com/thatHeathenJay/spt-coop-pack/main/custom/BottomUpSort-1.0.0.zip"
+    },
+    {
+      "name": "Better Flea 2.5.0",
+      "url": "https://github.com/MrFums/BetterFlea/releases/download/v2.5.0/BetterFlea-2.5.0.zip"
+    },
+    {
+      "name": "Price Index 1.2.3",
+      "url": "https://github.com/MrFums/PriceIndex/releases/download/v1.2.3/PriceIndex-1.2.3.zip"
+    },
+    {
+      "name": "Flogger 1.1.3",
+      "url": "https://github.com/MrFums/Flogger/releases/download/v1.1.3/Flogger-1.1.3.zip"
     }
   ]
 }
