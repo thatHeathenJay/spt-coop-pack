@@ -78,7 +78,10 @@ if (-not (Test-Path "$pyDir\yaml\__init__.py")) {
     Expand-Archive -LiteralPath $whl -DestinationPath $whlDir -Force
     foreach ($d in 'yaml', '_yaml') { if (Test-Path "$whlDir\$d") { Copy-Item "$whlDir\$d" "$pyDir\$d" -Recurse -Force } }
 }
-& $python -c 'import yaml, json; print("python ok, pyyaml", yaml.__version__)'
+# Windows PowerShell 5.1 strips inner quotes from native arguments: the check script goes through a file.
+$check = Join-Path $scratch 'check.py'
+Set-Content -Path $check -Value 'import yaml, json, sys; print("python ok, pyyaml", yaml.__version__)' -Encoding ascii
+& $python $check
 if ($LASTEXITCODE -ne 0) { throw 'The portable Python could not import PyYAML.' }
 
 # ---- the stub game: Arena's data files presented as a Mono game with EFT's own managed DLLs ------------------
