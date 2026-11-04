@@ -1,6 +1,6 @@
 # Arena: live-like co-op arena on our SPT server
 
-Status: design + build pipeline (2026-11-02). Phase 1 (solo, stock Arena Mode) installed.
+Status 2026-11-03: co-op fork released as v0.4.1-coop.1 (github.com/thatHeathenJay/ArenaMode). The pack installs it through INSTALL-ARENA.bat; the live UI pack (BSG assets) is never in a repo and is installed only when the manifest's `arenaUi.url` points at a download the host provides.
 
 ## Goal
 

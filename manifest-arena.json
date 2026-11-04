@@ -1,7 +1,7 @@
 {
   "sptVersion": "4.1.6",
   "eftFileVersion": "0.16.9.40743",
-  "note": "Arena client pack. Installed into <SPT folder>-Arena, a second client that shares the game data by junction and logs into the same server/profile. Requires EFT: Arena installed via the BSG launcher for the four ported maps.",
+  "note": "Arena client pack (opt-in). Installed into <SPT folder>-Arena, a second client that shares the game data by junction and logs into the same server and profile. Needs EFT: Arena installed through the BSG launcher for the four ported maps. Extraction never needs any of this.",
   "baseFromMain": {
     "plugins": [
       "spt",
@@ -38,12 +38,16 @@
   },
   "mods": [
     {
-      "name": "Arena Mode 0.4.1",
-      "url": "https://github.com/maschine34675/ArenaMode/releases/download/v0.4.1/ArenaMode-0.4.1.zip"
+      "name": "Arena Mode co-op fork (client)",
+      "url": "https://github.com/thatHeathenJay/ArenaMode/releases/download/v0.4.1-coop.1/ArenaMode-coop-client.zip"
     },
     {
       "name": "Arena Map Port 0.4.0 (3.6 GB)",
       "url": "https://pixeldrain.com/api/file/52B6fo1G?download"
     }
-  ]
+  ],
+  "arenaUi": {
+    "note": "Live Arena UI pack (BSG assets ripped from the player's own EFT: Arena install). Leave empty to use the stock HUD; set to a download URL to install it into BepInEx/plugins/maschine-ArenaMode/arena-ui.",
+    "url": ""
+  }
 }

@@ -64,18 +64,26 @@ Use **PLAY.bat** instead of SPT.Launcher. It checks the host for pack changes, i
 
 ## Arena (optional)
 
-Arena is a separate game client with its own launcher. You only need it if you want to play Arena modes.
-It needs **Escape from Tarkov: Arena** installed through the BSG launcher on your PC for the four Arena maps.
+Arena is opt-in. Nothing in extraction depends on it, and friends who skip it lose nothing.
 
-1. Double-click **INSTALL-ARENA.bat**. It builds a second client folder next to your SPT folder (named
-   `<your SPT folder>-Arena`), sharing the game data so it does not cost another 60 GB, and downloads the
-   Arena mods (about 3.7 GB).
-2. Double-click **PLAY-ARENA.bat** to play. It syncs the arena pack and opens the Arena launcher. Pick the
-   same server and the same profile as in extraction. Arena uses supplied kits; nothing from your stash is
-   at risk.
-3. Select **ARENA** beside PMC and Scav. Matches start directly.
+What it is: a second game client next to your SPT folder (named `<your SPT folder>-Arena`) that logs into the
+same server with the same profile and plays EFT: Arena's TeamFight on the four ported arenas, against bots or
+with friends over Fika. It uses Arena's own kits and presets; nothing from your stash is at risk.
 
-Extraction is unchanged whether or not you install Arena.
+What you need: **Escape from Tarkov: Arena** installed and updated through the BSG launcher. The ported maps
+read their assets from that install.
+
+1. Double-click **INSTALL-ARENA.bat**. It builds the arena client folder by sharing your SPT game data (no second
+   60 GB copy), downloads the Arena mods (about 3.7 GB) and applies the host's configs.
+2. Double-click **PLAY-ARENA.bat** to play. It syncs the arena pack and opens the Arena launcher. Pick the same
+   server and the same profile as in extraction.
+3. Main menu: **ARENA BATTLE** picks the mode and arenas, **MY PRESETS** picks or edits your kit. Matches start
+   from the Fika lobby as usual.
+
+The host runs the server in arena mode (**SPT.ServerArena.bat**) while you play arena, and in the normal mode
+for extraction. If you get "Your client doesn't meet server requirements", the server is in the other mode.
+
+To remove arena, delete the `<your SPT folder>-Arena` folder. Extraction is untouched either way.
 
 ## Updating later
 

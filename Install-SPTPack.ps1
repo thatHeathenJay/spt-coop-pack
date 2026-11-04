@@ -151,6 +151,25 @@ if (Test-Path $overridesDir) {
     $installed['__overrides__'] = $applied; SaveState
 }
 
+# ---- arena: the live Arena UI pack, when the host provides one --------------
+if ($Arena) {
+    $uiUrl = $manifest.arenaUi.url
+    $uiDir = Join-Path $SptRoot 'BepInEx\plugins\maschine-ArenaMode\arena-ui'
+    if ($uiUrl) {
+        if ($installed['__arenaUi__'] -ne $uiUrl) {
+            Write-Host 'Arena UI pack' -ForegroundColor Green
+            $file = Join-Path $dl 'arena-ui.zip'
+            if (-not (Test-Path $file)) { curl.exe -L --retry 5 --retry-delay 5 -# -A 'Mozilla/5.0' -o $file $uiUrl; if ($LASTEXITCODE -ne 0) { Fail "Download failed: $uiUrl" } }
+            if (Test-Path $uiDir) { Remove-Item $uiDir -Recurse -Force }
+            Expand-Archive -LiteralPath $file -DestinationPath (Split-Path $uiDir -Parent) -Force
+            if (-not (Test-Path (Join-Path $uiDir 'layouts'))) { Fail 'The Arena UI pack did not unpack to an arena-ui folder with layouts.' }
+            $installed['__arenaUi__'] = $uiUrl; SaveState
+        }
+    } elseif (-not (Test-Path $uiDir)) {
+        Write-Host 'No Arena UI pack in the manifest: the stock Arena Mode HUD and menus are used.' -ForegroundColor Yellow
+    }
+}
+
 Write-Host "`nUp to date." -ForegroundColor Cyan
 if ($Launch) {
     Start-Process (Join-Path $SptRoot 'SPT_Runtime\SPT.Launcher.exe') -WorkingDirectory (Join-Path $SptRoot 'SPT_Runtime')
